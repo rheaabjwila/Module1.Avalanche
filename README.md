@@ -1,22 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
-contract CombinedExample {
-    mapping (address AccAddress => uint StoredAmount) public ShowBalance;
-    uint StoredAmount;
+contract LetsBaked {
+    string public LetsMakeCookies = "Make some cookies!";
+    uint Flour;
+    uint Eggs;
+    uint ChocoChip;
 
-    function deposit(address Acc, uint256 amount) public {
-        require(amount > 0 && amount <= 1000, "Amount must be between 1 and 1000 inclusive");
-        ShowBalance[Acc] += amount;
-        StoredAmount += amount;
+    function FlourRange(uint Grams) public{
+        if(Grams != 5){
+            revert("Put exactly 5 grams of flour!");
+        }
+        Flour = Grams;
     }
 
-    function withdraw(address Acc, uint256 amount) public {
-         if (amount <= 0 || amount > 1000) {
-            revert("Amount must be between 1 and 1000 inclusive");
+    function EggPieces(uint Pieces) public{
+        require(Pieces == 2, "The textured will be bad!");
+        Eggs = Pieces;
+    }
+
+    function ChocoChips(uint Cup) public{
+        assert(Cup == 1);
+        ChocoChip = Cup;
+    }
+
+    function CheckCookies() public {
+        if(Flour == 0){
+            revert("Add some Flour!");
+        }else if(Eggs == 0){
+            revert("Add some Eggs!");
+        }else if(ChocoChip == 0){
+            revert("Add some Chips!");
+        }else{
+            LetsMakeCookies = "Here's your cookies!";
         }
-        assert(amount <= ShowBalance[Acc]);
-        ShowBalance[Acc] -= amount;
-        StoredAmount -= amount;
     }
 }
